@@ -1,0 +1,40 @@
+.register {
+  &__title {
+    font-size: 34px;
+    font-weight: bold;
+    margin-bottom: 50px;
+    margin-left: 10px;
+  }
+
+  &__header {
+    margin-left: 10px;
+
+    & h4 {
+      font-weight: 300;
+      line-height: 2.5rem;
+    }
+
+    & p {
+      font-weight: 100;
+      line-height: 2.5rem;
+    }
+    & a {
+      font-weight: 100;
+      line-height: 2.5rem;
+      color: white;
+    }
+  }
+
+  &__btn {
+    text-align: center;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: $breakpoint-bs-md) {
+  .register {
+    &__marker {
+      display: none;
+    }
+  }
+}
