@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
+var cookieParser = require('cookie-parser')
 
 const saltRounds = 10;
 const myPlaintextPassword = 'usedforhash';
@@ -12,6 +14,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // IMPORTANT 
 app.use(express.json());
+app.use(cookieParser());
 
 
 mongoose.connect('mongodb+srv://sanskar:database.find()@firstdatabase.5taea.mongodb.net/registerid',{useNewUrlParser: true});
@@ -49,6 +52,68 @@ app.post("/data",function(req,res){
 
 });
 
+// const verifyJWT = async (res,req,next) =>{
+  // try{
+  //   const token = req.cookies.token;
+  //   const verifyToken = jwt.verify(token,"secret");
+  //   const user = await Post.findOne({_id:verifyToken});
+
+  //   if(!user)
+  //   { throw new Error("No User") }
+
+  //   req.token=token;
+  //   console.log("user" ,user); 
+  //   next();
+  // }
+  // catch(err){
+  //     res.status(401).send("UnAuthorized");
+  //     console.log(err);
+  // }
+  // let token = req.cookies.token;
+
+  //  if(!token)
+  //  res.send("UnAuthorized");
+  //  else
+  //  {
+  //    const verifyToken = jwt.verify(token,"secret");
+
+  //    const user = await Post.findOne({_id:verifyToken});
+
+  //    req.auth=user;
+  //    console.log("user" ,user); 
+  //    if(!user)
+  //    {
+  //     console.log("NO valid user");
+  //     // res.status(201).json({auth: "false"});
+  //    }
+  //    else
+  //    {
+  //     //  req.token=token;
+  //      next();
+  //    }
+  //  }
+// };
+
+app.get("/isUserAuth", function(req,res){
+  console.log("hello auth");
+
+  try{
+    const token = req.cookies.token;
+    const verifyToken = jwt.verify(token,"secret");
+    const user = Post.findOne({_id:verifyToken});
+
+    if(!user)
+    { throw new Error("No User") }
+
+    req.token=token;
+    console.log("user" ,user); 
+    res.status(201).json({message: "Authorized",auth: "true"});
+  }
+  catch(err){
+      res.status(201).json({message: "UnAuthorized",auth: "false"});
+      console.log(err);
+  }
+});
 
 app.post("/login",function(req,res){
 
@@ -61,12 +126,19 @@ app.post("/login",function(req,res){
       if(foundUser)
       {
         // console.log(foundUser);
+        var token = jwt.sign({ id: foundUser._id}, 'secret',{expiresIn: '1h'});
+
         bcrypt.compare(req.body.password, foundUser.password, function(err, result) {
           if(err)
           console.log(err);
 
-          if(result === true)
+          if(result === true){
+            res.cookie("token",token,{
+              httpOnly: true,
+            });
           res.status(201).json({message: "Success"});
+
+        }
           else 
           res.status(201).json({message: "Fail"});
       });

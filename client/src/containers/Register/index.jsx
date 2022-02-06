@@ -186,7 +186,7 @@ class Register extends Component {
 
   const data = await res.json();
 
-    this.props.history.push("/dashboard");
+    this.props.history.push("/login");
   };
 
   render() {
@@ -197,7 +197,7 @@ class Register extends Component {
         <div className="register">
           <div className="register__title">Register with us</div>
           <div className="register__header">
-          <a href="/dashboard">Login</a>
+          <a href="/login">Login</a>
           </div>
 
           <div className="register__section">
