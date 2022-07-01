@@ -52,50 +52,7 @@ app.post("/data",function(req,res){
 
 });
 
-// const verifyJWT = async (res,req,next) =>{
-  // try{
-  //   const token = req.cookies.token;
-  //   const verifyToken = jwt.verify(token,"secret");
-  //   const user = await Post.findOne({_id:verifyToken});
-
-  //   if(!user)
-  //   { throw new Error("No User") }
-
-  //   req.token=token;
-  //   console.log("user" ,user); 
-  //   next();
-  // }
-  // catch(err){
-  //     res.status(401).send("UnAuthorized");
-  //     console.log(err);
-  // }
-  // let token = req.cookies.token;
-
-  //  if(!token)
-  //  res.send("UnAuthorized");
-  //  else
-  //  {
-  //    const verifyToken = jwt.verify(token,"secret");
-
-  //    const user = await Post.findOne({_id:verifyToken});
-
-  //    req.auth=user;
-  //    console.log("user" ,user); 
-  //    if(!user)
-  //    {
-  //     console.log("NO valid user");
-  //     // res.status(201).json({auth: "false"});
-  //    }
-  //    else
-  //    {
-  //     //  req.token=token;
-  //      next();
-  //    }
-  //  }
-// };
-
 app.get("/isUserAuth", function(req,res){
-  console.log("hello auth");
 
   try{
     const token = req.cookies.token;
@@ -106,7 +63,6 @@ app.get("/isUserAuth", function(req,res){
     { throw new Error("No User") }
 
     req.token=token;
-    console.log("user" ,user); 
     res.status(201).json({message: "Authorized",auth: "true"});
   }
   catch(err){

@@ -122,7 +122,6 @@ class Login extends Component {
   });
 
   const data = await res.json();
-  console.log(data.message);
       if(data.message==="Success")
     this.props.history.push("/dashboard");
     else

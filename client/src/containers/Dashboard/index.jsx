@@ -14,7 +14,6 @@ class Dashboard extends Component {
   });
 
   const data = await res.json();
-  console.log("data", data);
       if(data.auth == "true")
     this.props.history.push("/dashboard");
     else 

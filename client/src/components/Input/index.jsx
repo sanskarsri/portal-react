@@ -5,18 +5,6 @@ import Password from "../Icons/Password";
 import InputSuccess from "../Icons/InputSucess";
 import InputCancel from "../Icons/InputCancel";
 
-// InputProps = {
-//   attributes: Object,
-//   hasError: boolean,
-//   focused: boolean,
-//   label?: string,
-//   message?: string,
-//   messageClassName?: string,
-//   appendItem: any,
-//   prependItem: any,
-//   handleAppendItemClick?: Function,
-//   isPasswordVisible?: boolean
-// };
 
 const Input = (props) => {
   let appendedItem,
